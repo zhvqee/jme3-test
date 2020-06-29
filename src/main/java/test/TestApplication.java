@@ -32,7 +32,7 @@ public class TestApplication extends SimpleApplication {
 
 
         // 导入模型
-        final Spatial model = assetManager.loadModel("models/env/scene.gltf");
+        final Spatial model = assetManager.loadModel("/models/env/ManyLights/Grid.mesh.xml");
         model.scale(0.002f);// 按比例缩小
        // model.center();// 将模型的中心移到原点
         model.setLocalTranslation(0,-2f,0);
