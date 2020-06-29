@@ -34,6 +34,27 @@
             <artifactId>jme3-lwjgl</artifactId>
             <version>3.2.2-stable</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jmonkeyengine/jme3-bullet -->
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-bullet</artifactId>
+            <version>3.2.0-stable</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jmonkeyengine/jme3-bullet-native -->
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-bullet-native</artifactId>
+            <version>3.2.2-stable</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jmonkeyengine/jme3-niftygui -->
+        <dependency>
+            <groupId>org.jmonkeyengine</groupId>
+            <artifactId>jme3-niftygui</artifactId>
+            <version>3.2.0-stable</version>
+        </dependency>
+
+
     </dependencies>
 
 
