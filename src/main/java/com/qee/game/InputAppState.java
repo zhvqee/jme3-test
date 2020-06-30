@@ -117,7 +117,7 @@ public class InputAppState extends BaseAppState implements ActionListener {
         tmpVar = TempVars.get();
 
         Vector3f frontDir = tmpVar.vect1.set(0, 0, 0.6f);
-        Vector3f leftDir = tmpVar.vect2.set(-0.4f, 0, 0);
+        Vector3f leftDir = tmpVar.vect2.set(0.4f, 0, 0);
         Vector3f walkDir = tmpVar.vect3.set(0, 0, 0);
 
         if (forward) {
@@ -143,6 +143,7 @@ public class InputAppState extends BaseAppState implements ActionListener {
 
     private void idle() {
         System.out.println("idle");
+        stateManager.getState(CharacterAppState.class).walk(new Vector3f(0,0,0));
         //  stateManager.getState(CharacterAppState.class).idle();
     }
 
