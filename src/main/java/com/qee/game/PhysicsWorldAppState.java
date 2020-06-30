@@ -14,7 +14,9 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import com.jme3.util.SkyFactory;
 
 public class PhysicsWorldAppState extends BaseAppState {
 
@@ -29,6 +31,9 @@ public class PhysicsWorldAppState extends BaseAppState {
     @Override
     protected void initialize(Application app) {
         world =new Node();
+
+        // 天空盒
+        Spatial sky = SkyFactory.createSky(app.getAssetManager(), "Textures/Sky/Bright/BrightSky.dds", SkyFactory.EnvMapType.CubeMap);
 
 
         BulletAppState state = app.getStateManager().getState(BulletAppState.class);
@@ -60,6 +65,7 @@ public class PhysicsWorldAppState extends BaseAppState {
 
         SimpleApplication simpleApplication = (SimpleApplication) app;
         simpleApplication.getRootNode().attachChild(world);
+        simpleApplication.getRootNode().attachChild(sky);
         state.setDebugEnabled(true);
 
     }
