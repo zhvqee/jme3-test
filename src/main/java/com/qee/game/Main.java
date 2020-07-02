@@ -17,19 +17,19 @@ public class Main extends SimpleApplication {
 
         stateManager.attach(new InputAppState());
 
-        // 定向光
-        DirectionalLight sunLight = new DirectionalLight();
-        sunLight.setDirection(new Vector3f(1, 2, 3));
-        sunLight.setColor(new ColorRGBA(0.8f, 0.8f, 0.8f, 1f));
+        initLight();
+    }
 
-        // 环境光
-        AmbientLight ambientLight = new AmbientLight();
-        ambientLight.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 1f));
-
-        // 将光源添加到场景图中
-        rootNode.addLight(sunLight);
-        rootNode.addLight(ambientLight);
-
+    private void initLight() {
+        // 添加平行光
+        DirectionalLight sun = new DirectionalLight();
+        sun.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 1f));
+        sun.setDirection(new Vector3f(-3, -4, -5).normalizeLocal());
+        rootNode.addLight(sun);
+// 添加环境光
+        AmbientLight ambient = new AmbientLight();
+        ambient.setColor(new ColorRGBA(0.2f, 0.2f, 0.2f, 1f));
+        rootNode.addLight(ambient);
     }
 
     public static void main(String[] args) {

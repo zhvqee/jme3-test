@@ -9,15 +9,11 @@ import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Sphere;
 
 public class CharacterAppState extends BaseAppState {
 
@@ -46,34 +42,50 @@ public class CharacterAppState extends BaseAppState {
     private Vector3f camDir = new Vector3f();
     private Quaternion camRot = new Quaternion();
 
+    private float height = 5f;
+
+    private float stepHeight = 0.5f;
+
+    private float radis = 1.5f;
+
+
+    public void createHuman() {
+
+        human = assetManager.loadModel("firework_freddy/scene.gltf");
+        human.move(0, -(height/2+radis), 0);
+        human.scale(0.003f);
+    }
+
 
     @Override
     protected void initialize(Application app) {
         simpleApplication = (SimpleApplication) app;
         assetManager = app.getAssetManager();
         characterRootNode = new Node("characterRootNode");
-        human = new Geometry("human", new Sphere(8, 8, 1));
+      /*  human = new Geometry("human", new Sphere(8, 8, 1));
         Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         material.setColor("Color", ColorRGBA.Red);
-        human.setMaterial(material);
+        human.setMaterial(material);*/
+        createHuman();
+
 
         // 使用胶囊体作为玩家的碰撞形状
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1f, 1.9f, 1);
+        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(radis, height, 1);
 
         // 使用CharacterControl来控制玩家物体
-        this.player = new CharacterControl(capsuleShape, 0.5f);
+        this.player = new CharacterControl(capsuleShape, stepHeight);
         player.setGravity(new Vector3f(0f, -100f, 0f));
         characterRootNode.addControl(player);
 
         app.getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(player);
-
+        player.setPhysicsLocation(new Vector3f(0, height, 0.3f));
 
         characterRootNode.attachChild(human);
         cameraNode = new Node("camera");
 
         createSimpleChaseCamera(app.getCamera(), cameraNode, app.getInputManager());
 
-        cameraNode.setLocalTranslation(0, 0.9f, 0.3f);// 将此节点上移一段距离，使摄像机位于角色的头部。
+        cameraNode.setLocalTranslation(0f, height / 4 , 0f);// 将此节点上移一段距离，使摄像机位于角色的头部。
 
         characterRootNode.attachChild(cameraNode);
         rootNode = simpleApplication.getRootNode();
@@ -95,9 +107,9 @@ public class CharacterAppState extends BaseAppState {
         chaseCamera.setZoomSensitivity(0.5f);
         chaseCamera.setRotationSpeed(5f);
         chaseCamera.setRotationSensitivity(5);
-        chaseCamera.setMaxDistance(15);
+        chaseCamera.setMaxDistance(18);
         chaseCamera.setMinDistance(2f);
-        chaseCamera.setDefaultDistance(4);
+        chaseCamera.setDefaultDistance(18);
         chaseCamera.setChasingSensitivity(5);
         chaseCamera.setDownRotateOnCloseViewOnly(true);
         chaseCamera.setUpVector(Vector3f.UNIT_Y);
