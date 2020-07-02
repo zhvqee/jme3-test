@@ -31,6 +31,8 @@ public class CharacterAppState extends BaseAppState {
 
     private ChaseCamera chaseCamera;
 
+    private Camera camera;
+
     private SimpleApplication simpleApplication;
 
     private Node rootNode;
@@ -56,7 +58,7 @@ public class CharacterAppState extends BaseAppState {
         human.setMaterial(material);
 
         // 使用胶囊体作为玩家的碰撞形状
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.5f, 1.9f, 1);
+        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1f, 1.9f, 1);
 
         // 使用CharacterControl来控制玩家物体
         this.player = new CharacterControl(capsuleShape, 0.5f);
@@ -81,6 +83,7 @@ public class CharacterAppState extends BaseAppState {
 
     public ChaseCamera createSimpleChaseCamera(Camera camera, Node tar2
             , InputManager inputManager) {
+        this.camera = camera;
         chaseCamera = new ChaseCamera(camera, tar2, inputManager);
 
         // 开启镜头跟随可能让部分人容易犯头晕
@@ -103,34 +106,63 @@ public class CharacterAppState extends BaseAppState {
         return chaseCamera;
     }
 
-
     @Override
     public void update(float tpf) {
         if (walkDir.lengthSquared() != 0) {
             // 计算摄像机在水平面的方向
-            //   camDir.set(cameraCur.getDirection());
+
+            camDir.set(camera.getDirection());
             camDir.y = 0;
             camDir.normalizeLocal();
 
-            // 根据摄像机方向，计算旋转角度
+            //根据摄像机方向，计算旋转角度
             camRot.lookAt(camDir, Vector3f.UNIT_Y);
 
             // 使用该旋转，改变行走方向。
             camRot.mult(walkDir, camDir);
-            System.out.println(camDir);
 
             // 改变玩家的朝向
             player.setViewDirection(camDir);
 
             // 调整速度大小
             camDir.multLocal(0.1f);
-
-            player.setWalkDirection(camDir);
-
+            System.out.println(camDir);
         } else {
-            camDir.set(0, 0, 0);
+            camDir.set(new Vector3f(0, 0, 0));
+
         }
+        player.setWalkDirection(camDir);
+
     }
+
+    /**
+     * @Override public void update(float tpf) {
+     * if (walkDir.lengthSquared() != 0) {
+     * // 计算摄像机在水平面的方向
+     * //   camDir.set(cameraCur.getDirection());
+     * camDir.y = 0;
+     * camDir.normalizeLocal();
+     * <p>
+     * // 根据摄像机方向，计算旋转角度
+     * camRot.lookAt(camDir, Vector3f.UNIT_Y);
+     * <p>
+     * // 使用该旋转，改变行走方向。
+     * camRot.mult(walkDir, camDir);
+     * System.out.println(camDir);
+     * <p>
+     * // 改变玩家的朝向
+     * player.setViewDirection(camDir);
+     * <p>
+     * // 调整速度大小
+     * camDir.multLocal(0.1f);
+     * <p>
+     * player.setWalkDirection(camDir);
+     * <p>
+     * } else {
+     * //  camDir.set(0, 0, 0);
+     * }
+     * }
+     **/
 
 
     @Override
@@ -155,9 +187,7 @@ public class CharacterAppState extends BaseAppState {
      * @param dir
      */
     public void walk(Vector3f dir) {
-        if (dir != null) {
-            dir.normalizeLocal();
-            walkDir.set(dir);
-        }
+        dir.normalizeLocal();
+        walkDir.set(dir);
     }
 }

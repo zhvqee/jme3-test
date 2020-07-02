@@ -7,6 +7,7 @@ import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.qee.game.CharacterAppState;
 
 /**
  * 演示使用第三人称控制Jaime在地图中自由行走。
