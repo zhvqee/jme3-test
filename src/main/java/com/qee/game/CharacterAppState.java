@@ -94,7 +94,7 @@ public class CharacterAppState extends BaseAppState {
         chaseCamera.setRotationSensitivity(5);
         chaseCamera.setMaxDistance(15);
         chaseCamera.setMinDistance(2f);
-        chaseCamera.setDefaultDistance(15);
+        chaseCamera.setDefaultDistance(4);
         chaseCamera.setChasingSensitivity(5);
         chaseCamera.setDownRotateOnCloseViewOnly(true);
         chaseCamera.setUpVector(Vector3f.UNIT_Y);

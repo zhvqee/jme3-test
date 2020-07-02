@@ -3,6 +3,7 @@ package com.qee.game;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.BaseAppState;
+import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -27,10 +28,19 @@ public class PhysicsWorldAppState extends BaseAppState {
 
     private Node world ;
 
+    private AssetManager assetManager;
+
+
+
 
     @Override
     protected void initialize(Application app) {
         world =new Node();
+
+
+         assetManager = app.getAssetManager();
+        Spatial scene = assetManager.loadModel("models/env/scene.gltf");
+
 
         // 天空盒
         Spatial sky = SkyFactory.createSky(app.getAssetManager(), "Textures/Sky/Bright/BrightSky.dds", SkyFactory.EnvMapType.CubeMap);
@@ -40,7 +50,7 @@ public class PhysicsWorldAppState extends BaseAppState {
         physicsSpace = state.getPhysicsSpace();
 
 
-        Box box = new Box(10, 0.5f, 10);
+   /*     Box box = new Box(10, 0.5f, 10);
         Geometry geometry = new Geometry("floor", box);
         Material material = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         material.setColor("Color", ColorRGBA.Brown);
@@ -55,7 +65,9 @@ public class PhysicsWorldAppState extends BaseAppState {
         geometry2.move(new Vector3f(0,0,-10));
 
         world.attachChild(geometry);
-        world.attachChild(geometry2);
+        world.attachChild(geometry2);*/
+
+        world.attachChild(scene);
 
 
         CollisionShape meshShape = CollisionShapeFactory.createMeshShape(world);
