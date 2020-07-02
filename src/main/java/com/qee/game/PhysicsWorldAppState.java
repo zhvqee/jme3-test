@@ -38,18 +38,17 @@ public class PhysicsWorldAppState extends BaseAppState {
         world =new Node();
 
 
-    /*     assetManager = app.getAssetManager();
-        Spatial scene = assetManager.loadModel("models/env/scene.gltf");
-*/
+         assetManager = app.getAssetManager();
+        Spatial scene = assetManager.loadModel("berry/scene.gltf");
 
         // 天空盒
-        Spatial sky = SkyFactory.createSky(app.getAssetManager(), "Textures/Sky/Bright/BrightSky.dds", SkyFactory.EnvMapType.CubeMap);
+      //  Spatial sky = SkyFactory.createSky(app.getAssetManager(), "Textures/Sky/Bright/BrightSky.dds", SkyFactory.EnvMapType.CubeMap);
 
 
         BulletAppState state = app.getStateManager().getState(BulletAppState.class);
         physicsSpace = state.getPhysicsSpace();
 
-
+/*
         Box box = new Box(10, 0.5f, 10);
         Geometry geometry = new Geometry("floor", box);
         Material material = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
@@ -65,21 +64,24 @@ public class PhysicsWorldAppState extends BaseAppState {
         geometry2.move(new Vector3f(0,0,-10));
 
         world.attachChild(geometry);
-        world.attachChild(geometry2);
+        world.attachChild(geometry2);*/
 
-    //    world.attachChild(scene);
+        scene.scale(0.1f);
+        world.attachChild(scene);
 
 
         CollisionShape meshShape = CollisionShapeFactory.createMeshShape(world);
         rigidBodyControl = new RigidBodyControl(meshShape);
         rigidBodyControl.setMass(0);
         physicsSpace.add(rigidBodyControl);
+        world.setLocalTranslation(0,0,0);
 
         SimpleApplication simpleApplication = (SimpleApplication) app;
         simpleApplication.getRootNode().attachChild(world);
-        simpleApplication.getRootNode().attachChild(sky);
-        state.setDebugEnabled(true);
+     //   simpleApplication.getRootNode().attachChild(sky);
+     //   state.setDebugEnabled(true);
 
+        System.out.println("world:"+world.getLocalTranslation());
     }
 
     @Override

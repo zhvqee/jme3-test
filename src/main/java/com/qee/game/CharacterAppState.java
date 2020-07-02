@@ -90,6 +90,9 @@ public class CharacterAppState extends BaseAppState {
         characterRootNode.attachChild(cameraNode);
         rootNode = simpleApplication.getRootNode();
         rootNode.attachChild(characterRootNode);
+        System.out.println("cameraNode:"+cameraNode.getLocalTranslation());
+        System.out.println("characterRootNode:"+characterRootNode.getLocalTranslation());
+
 
     }
 

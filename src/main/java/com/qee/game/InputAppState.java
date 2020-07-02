@@ -108,8 +108,8 @@ public class InputAppState extends BaseAppState implements ActionListener {
     private void toggleBulletDebug() {
         BulletAppState bulletAppState = stateManager.getState(BulletAppState.class);
         if (bulletAppState != null) {
-            boolean debugEnabled = bulletAppState.isDebugEnabled();
-            bulletAppState.setDebugEnabled(!debugEnabled);
+          //  boolean debugEnabled = bulletAppState.isDebugEnabled();
+         //   bulletAppState.setDebugEnabled(!debugEnabled);
         }
     }
 
